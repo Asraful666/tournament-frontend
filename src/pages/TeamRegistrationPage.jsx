@@ -1,0 +1,21 @@
+import PageHeader from "../components/PageHeader";
+import AssignmentsManager from "../components/AssignmentsManager";
+import { getSection } from "../config/navigation";
+import { useAuth } from "../services/auth-store";
+import { canEditSection, normalizeRole } from "../services/roles";
+
+export default function TeamRegistrationPage() {
+  const { user } = useAuth();
+  const role = normalizeRole(user?.role);
+  const section = getSection("tournament-teams");
+
+  return (
+    <>
+      <PageHeader title={section.title} subtitle={section.subtitle} />
+      <AssignmentsManager
+        resource="tournament-teams"
+        readOnly={!canEditSection(role, "tournament-teams")}
+      />
+    </>
+  );
+}

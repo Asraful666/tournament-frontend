@@ -1,0 +1,914 @@
+/* ==========================================================
+   Auth screens (Sign in / Sign up) — shown when there is no
+   valid backend session. Two-panel layout: dark brand side +
+   white form side, matching the dashboard palette
+   (sidebar #101d32, accent #176b50).
+   ========================================================== */
+
+.auth-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  background:
+    radial-gradient(1200px 500px at 15% -10%, #dbe7f4 0%, transparent 60%),
+    radial-gradient(900px 450px at 100% 110%, #d7efe6 0%, transparent 55%),
+    #eef3f9;
+}
+
+/* Rendered inside PublicLayout, which already supplies the branding
+   and navigation, so only the form card is shown. */
+.auth-screen-embedded {
+  min-height: auto;
+  padding: 64px 24px;
+  background:
+    radial-gradient(720px 340px at 100% 0%, #e8f3ee 0%, transparent 62%),
+    #f7fafd;
+}
+
+.auth-screen-embedded .auth-shell {
+  display: block;
+  width: min(460px, 100%);
+  margin: 0 auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+}
+
+.auth-screen-embedded .auth-panel {
+  padding: 34px 32px;
+}
+
+.auth-shell {
+  width: min(980px, 100%);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.16);
+}
+
+/* ---------- Left: brand panel ---------- */
+
+.auth-side {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 44px 40px;
+  background:
+    radial-gradient(600px 300px at 110% 0%, rgba(23, 107, 80, 0.35) 0%, transparent 60%),
+    linear-gradient(160deg, #101d32 0%, #16263f 100%);
+  color: #fff;
+}
+
+.auth-logo {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 30px;
+}
+
+.auth-side-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.auth-side-brand h1 {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: 0.5px;
+}
+
+.auth-side-brand p {
+  margin: 0;
+  color: #a7b5cb;
+  font-size: 14px;
+}
+
+.auth-features {
+  display: grid;
+  gap: 14px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.auth-features li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  color: #d2dceb;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.auth-features li > span {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 16px;
+}
+
+.auth-roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.auth-roles span {
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #cdd8e6;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.auth-side-foot {
+  margin: 14px 0 0;
+  color: #7a8aa3;
+  font-size: 12px;
+}
+
+/* ---------- Right: form panel ---------- */
+
+.auth-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 40px 38px;
+  background: #fff;
+}
+
+.auth-home-link {
+  align-self: flex-start;
+  color: #176b50;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-home-link:hover {
+  text-decoration: underline;
+}
+
+.auth-home-link:focus-visible {
+  outline: 2px solid #176b50;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 5px;
+  background: #eef2f7;
+  border-radius: 12px;
+}
+
+.auth-tabs button {
+  border: 0;
+  background: transparent;
+  border-radius: 9px;
+  padding: 10px 12px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #64748b;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+}
+
+.auth-tabs button.active {
+  background: #fff;
+  color: #10203a;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
+}
+
+.auth-tabs button:focus-visible {
+  outline: 2px solid #176b50;
+  outline-offset: 2px;
+}
+
+.auth-title {
+  margin: 4px 0 0;
+  font-size: 24px;
+}
+
+.auth-subtitle {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ---------- Form fields ---------- */
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.auth-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.auth-form input {
+  width: 100%;
+  border: 1px solid #d7dee8;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14.5px;
+  color: #182338;
+  background: #fbfcfe;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.auth-form input::placeholder {
+  color: #9aa8ba;
+  font-weight: 400;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: #176b50;
+  box-shadow: 0 0 0 3px rgba(23, 107, 80, 0.15);
+  background: #fff;
+}
+
+/* Password row with the show/hide toggle inside the field */
+
+.passwd-wrap {
+  position: relative;
+  display: flex;
+}
+
+.passwd-wrap input {
+  padding-right: 56px;
+}
+
+.passwd-toggle {
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 7px 9px;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1;
+  color: #64748b;
+}
+
+.passwd-toggle:hover {
+  background: #eef2f7;
+}
+
+.passwd-toggle:focus-visible {
+  outline: 2px solid #176b50;
+  outline-offset: 1px;
+}
+
+.auth-field-hint {
+  margin: -2px 0 0;
+  color: #8a97a8;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ---------- Submit + status ---------- */
+
+.auth-submit {
+  margin-top: 6px;
+  border: 0;
+  border-radius: 10px;
+  padding: 13px;
+  background: #176b50;
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.05s;
+}
+
+.auth-submit:hover:not(:disabled) {
+  background: #155d45;
+}
+
+.auth-submit:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.auth-submit:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
+
+.auth-submit:disabled {
+  opacity: 0.65;
+  cursor: progress;
+}
+
+.auth-switch-hint {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+  text-align: center;
+}
+
+.auth-switch-hint button {
+  border: 0;
+  background: transparent;
+  padding: 2px 4px;
+  color: #176b50;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.auth-switch-hint button:hover {
+  text-decoration: underline;
+}
+
+.auth-hint {
+  margin: 2px 0 0;
+  padding: 11px 14px;
+  border: 1px dashed #c8d6e3;
+  border-radius: 10px;
+  background: #f6f9fc;
+  color: #526782;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+/* error-box / success-box come from index.css */
+
+/* ---------- Compact screens ---------- */
+
+@media (max-width: 860px) {
+  .auth-shell {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+  }
+
+  .auth-side {
+    padding: 30px 28px;
+    gap: 16px;
+  }
+
+  .auth-features {
+    display: none;
+  }
+
+  .auth-roles {
+    margin-top: 0;
+  }
+
+  .auth-side-brand h1 {
+    font-size: 24px;
+  }
+
+  .auth-panel {
+    padding: 28px 24px;
+  }
+}
+
+/* ==========================================================
+   Navbar user area (same stylesheet keeps auth + top bar in
+   one place; imported in main.jsx together with index.css).
+   ========================================================== */
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-chip {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  text-align: right;
+}
+
+.user-chip strong {
+  color: #182338;
+  font-size: 14px;
+}
+
+.user-chip span {
+  color: #176b50;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+
+/* =====================================
+   TOURNEYHUB NAVBAR PROFILE DESIGN
+===================================== */
+
+/* Navbar User Container */
+.top-navbar .navbar-user {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: row !important;
+    gap: 16px !important;
+    flex-shrink: 0 !important;
+}
+
+/* Profile Link */
+.top-navbar .navbar-profile-link {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    gap: 12px !important;
+    padding: 6px 10px !important;
+    margin: 0 !important;
+
+    background: transparent !important;
+    border: none !important;
+    border-radius: 10px !important;
+
+    text-decoration: none !important;
+    color: #1e293b !important;
+
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+}
+
+/* Profile Avatar */
+.top-navbar .navbar-profile-link .navbar-avatar {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    min-height: 46px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    background: #176b50 !important;
+    color: #ffffff !important;
+
+    border-radius: 50% !important;
+
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+
+    flex-shrink: 0 !important;
+}
+
+/* Name and Role Container */
+.top-navbar .navbar-profile-link .navbar-user-copy {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+
+    gap: 4px !important;
+    min-width: 0 !important;
+}
+
+/* User Name */
+.top-navbar .navbar-profile-link .navbar-user-copy strong {
+    display: block !important;
+
+    color: #172b4d !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+
+    line-height: 20px !important;
+    text-decoration: none !important;
+}
+
+/* User Role */
+.top-navbar .navbar-profile-link .navbar-user-copy span {
+    display: block !important;
+
+    color: #64748b !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+
+    line-height: 16px !important;
+    text-decoration: none !important;
+}
+
+/* Hover Effect */
+.top-navbar .navbar-profile-link:hover {
+    background: #f1f5f9 !important;
+    border-radius: 10px !important;
+}
+
+.top-navbar .navbar-profile-link:hover .navbar-user-copy strong {
+    color: #176b50 !important;
+}
+
+/* Logout Button */
+.top-navbar .navbar-user .secondary-button {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .top-navbar .navbar-user {
+        gap: 6px !important;
+    }
+
+    .top-navbar .navbar-profile-link {
+        gap: 7px !important;
+        padding: 4px !important;
+    }
+
+    .top-navbar .navbar-profile-link .navbar-avatar {
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        min-height: 38px !important;
+        font-size: 17px !important;
+    }
+
+    .top-navbar .navbar-profile-link .navbar-user-copy strong {
+        font-size: 13px !important;
+    }
+
+    .top-navbar .navbar-profile-link .navbar-user-copy span {
+        font-size: 11px !important;
+    }
+}
+
+
+
+/* ==========================================
+   TOURNEYHUB - PROFESSIONAL PROFILE PAGE
+========================================== */
+
+.profile-page {
+    width: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 32px;
+    box-sizing: border-box;
+    color: #172b4d;
+}
+
+/* Page Heading */
+.profile-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    gap: 15px;
+}
+
+.profile-heading h1 {
+    font-size: 30px;
+    font-weight: 750;
+    margin: 0 0 8px;
+    color: #172b4d;
+}
+
+.profile-heading p {
+    margin: 0;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.profile-heading a {
+    text-decoration: none;
+    color: #176b50;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.profile-heading a:hover {
+    text-decoration: underline;
+}
+
+/* Profile Header Card */
+.profile-header-card {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 28px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
+    margin-bottom: 25px;
+}
+
+/* Avatar */
+.profile-page .profile-avatar {
+    width: 82px;
+    height: 82px;
+    min-width: 82px;
+    border-radius: 50%;
+    background: #176b50;
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 32px;
+    font-weight: 700;
+}
+
+/* Profile Name and Email */
+.profile-header-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.profile-header-info h2 {
+    font-size: 23px;
+    font-weight: 700;
+    color: #172b4d;
+    margin: 0 0 7px;
+}
+
+.profile-header-info p {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0 0 13px;
+}
+
+/* Role and Status */
+.profile-tags {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-wrap: wrap;
+}
+
+.profile-tags span {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 13px;
+    border-radius: 20px;
+    background: #e8f5ee;
+    color: #176b50;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Edit Button */
+.profile-edit-btn {
+    background: #176b50;
+    color: #ffffff;
+    border: none;
+    border-radius: 9px;
+    padding: 11px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    white-space: nowrap;
+}
+
+.profile-edit-btn:hover,
+.profile-save-btn:hover {
+    background: #10543e;
+}
+
+/* Information Cards Grid */
+.profile-content-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+/* Individual Information Card */
+.profile-info-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.035);
+}
+
+.profile-info-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #172b4d;
+    margin: 0 0 16px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #edf1f5;
+}
+
+/* Information Rows */
+.profile-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f2f5;
+}
+
+.profile-info-item:last-child {
+    border-bottom: none;
+}
+
+.profile-info-item span {
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.profile-info-item strong {
+    color: #172b4d;
+    font-size: 14px;
+    font-weight: 650;
+    overflow-wrap: anywhere;
+}
+
+/* Edit Profile Form */
+.profile-edit-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.035);
+}
+
+.profile-edit-card h3 {
+    font-size: 19px;
+    margin: 0 0 8px;
+    color: #172b4d;
+}
+
+.profile-edit-card label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.profile-edit-card input {
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    background: #ffffff;
+}
+
+.profile-edit-card input:focus {
+    border-color: #176b50;
+    box-shadow: 0 0 0 3px rgba(23, 107, 80, 0.10);
+}
+
+/* Form Buttons */
+.profile-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.profile-save-btn {
+    background: #176b50;
+    color: #ffffff;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.profile-save-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.profile-cancel-btn {
+    background: #ffffff;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    padding: 10px 19px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.profile-cancel-btn:hover {
+    background: #f1f5f9;
+}
+
+/* Success and Error Messages */
+.profile-error {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+    border-radius: 9px;
+    padding: 13px 16px;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+.profile-success {
+    background: #ecfdf5;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+    border-radius: 9px;
+    padding: 13px 16px;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+/* Loading */
+.profile-page > div:first-child {
+    line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-page {
+        padding: 20px 14px;
+    }
+
+    .profile-content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-header-card {
+        flex-wrap: wrap;
+        padding: 20px;
+    }
+
+    .profile-edit-btn {
+        margin-left: auto;
+    }
+
+    .profile-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-header-card {
+        gap: 14px;
+    }
+
+    .profile-page .profile-avatar {
+        width: 65px;
+        height: 65px;
+        min-width: 65px;
+        font-size: 25px;
+    }
+
+    .profile-header-info h2 {
+        font-size: 19px;
+    }
+
+    .profile-edit-btn {
+        width: 100%;
+    }
+
+    .profile-info-card {
+        padding: 18px;
+    }
+}
